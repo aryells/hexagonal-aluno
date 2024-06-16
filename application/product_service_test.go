@@ -2,7 +2,7 @@ package application_test
 
 import (
 	"github.com/aryells/hexagonal-aluno/application"
-	mock_application "github.com/aryells/hexagonal-aluno/application/mocks"
+	mockapplication "github.com/aryells/hexagonal-aluno/application/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -11,8 +11,8 @@ import (
 func TestProductService_Get(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	product := mock_application.NewMockProductInterface(ctrl)
-	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
+	product := mockapplication.NewMockProductInterface(ctrl)
+	persistence := mockapplication.NewMockProductPersistenceInterface(ctrl)
 	persistence.EXPECT().Get(gomock.Any()).Return(product, nil).AnyTimes()
 	service := application.ProductService{Persistence: persistence}
 
@@ -25,8 +25,8 @@ func TestProductService_Get(t *testing.T) {
 func TestProductService_Create(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	product := mock_application.NewMockProductInterface(ctrl)
-	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
+	product := mockapplication.NewMockProductInterface(ctrl)
+	persistence := mockapplication.NewMockProductPersistenceInterface(ctrl)
 	persistence.EXPECT().Save(gomock.Any()).Return(product, nil).AnyTimes()
 	service := application.ProductService{Persistence: persistence}
 
@@ -38,11 +38,11 @@ func TestProductService_Create(t *testing.T) {
 func TestProductService_EnableDisable(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	product := mock_application.NewMockProductInterface(ctrl)
+	product := mockapplication.NewMockProductInterface(ctrl)
 	product.EXPECT().Enable().Return(nil)
 	product.EXPECT().Disable().Return(nil)
 
-	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
+	persistence := mockapplication.NewMockProductPersistenceInterface(ctrl)
 	persistence.EXPECT().Save(gomock.Any()).Return(product, nil).AnyTimes()
 	service := application.ProductService{Persistence: persistence}
 

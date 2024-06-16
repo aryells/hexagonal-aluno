@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/asaskevich/govalidator"
-	uuid "github.com/satori/go.uuid"
+	"github.com/google/uuid"
 )
 
 func init() {
@@ -72,7 +72,7 @@ func (p *Product) GetPrice() float64 {
 
 func NewProduct() *Product {
 	product := Product{
-		ID:     uuid.NewV4().String(),
+		ID:     uuid.New().String(),
 		Status: DISABLED,
 	}
 	return &product

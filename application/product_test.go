@@ -2,7 +2,7 @@ package application_test
 
 import (
 	"github.com/aryells/hexagonal-aluno/application"
-	uuid "github.com/satori/go.uuid"
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -37,7 +37,7 @@ func TestProduct_Disable(t *testing.T) {
 
 func TestProduct_IsValid(t *testing.T) {
 	product := application.Product{}
-	product.ID = uuid.NewV4().String()
+	product.ID = uuid.New().String()
 	product.Name = "hello"
 	product.Status = application.DISABLED
 	product.Price = 10
