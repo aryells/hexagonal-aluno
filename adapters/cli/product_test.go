@@ -3,7 +3,7 @@ package cli_test
 import (
 	"fmt"
 	"github.com/aryells/hexagonal-aluno/adapters/cli"
-	mock_application "github.com/aryells/hexagonal-aluno/application/mocks"
+	mockapplication "github.com/aryells/hexagonal-aluno/application/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -18,13 +18,13 @@ func TestRun(t *testing.T) {
 	productStatus := "enabled"
 	productId := "abc"
 
-	productMock := mock_application.NewMockProductInterface(ctrl)
+	productMock := mockapplication.NewMockProductInterface(ctrl)
 	productMock.EXPECT().GetID().Return(productId).AnyTimes()
 	productMock.EXPECT().GetStatus().Return(productStatus).AnyTimes()
 	productMock.EXPECT().GetPrice().Return(productPrice).AnyTimes()
 	productMock.EXPECT().GetName().Return(productName).AnyTimes()
 
-	service := mock_application.NewMockProductServiceInterface(ctrl)
+	service := mockapplication.NewMockProductServiceInterface(ctrl)
 	service.EXPECT().Create(productName, productPrice).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Get(productId).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Enable(gomock.Any()).Return(productMock, nil).AnyTimes()

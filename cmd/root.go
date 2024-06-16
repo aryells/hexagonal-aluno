@@ -1,13 +1,22 @@
 /*
-Copyright © 2024 Aryel Liberato Sotero
+Copyright © 2024 Aryel Liberato Sotero <aryells@gmail.com>
 */
 package cmd
 
 import (
+	"database/sql"
+	dbInfra "github.com/aryells/hexagonal-aluno/adapters/db"
+	"github.com/aryells/hexagonal-aluno/application"
 	"os"
 
 	"github.com/spf13/cobra"
 )
+
+var cfgFile string
+
+var db, _ = sql.Open("sqlite3", "db.sqlite")
+var productDb = dbInfra.NewProductDb(db)
+var productService = application.ProductService{Persistence: productDb}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
